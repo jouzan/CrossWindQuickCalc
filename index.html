@@ -72,6 +72,9 @@ footer{font-size:13px;color:#526c89;flex-wrap:wrap;line-height:1.6}.footer-brand
 .planner-options .aircraft-reference b{font-size:16px}
 .planner-options .aircraft-reference a{font-size:14px}
 @media(max-width:740px){.planner-options{grid-template-columns:minmax(0,1fr);gap:20px}.planner-options .timezone-field select,.planner-options .aircraft-field select{font-size:16px}}
+
+/* Override the original full-row placement of each selector. */
+.planner-options>.timezone-row,.planner-options>.aircraft-row{grid-column:auto;grid-row:auto}
 </style></head><body><header class="topbar"><a class="brand" href="./">↗ CROSSWIND <span class="brand-separator">/</span><span class="brand-caption">A clearer approach.</span></a><div class="toplinks"><span class="small-dot"></span> AVIATION WEATHER DESK <button id="how" type="button">How it works ↗</button></div></header>
 <main>
 <div class="page-intro"><div><div class="eyebrow">KNOW YOUR WIND. CHOOSE YOUR RUNWAY.</div><h1>Your runway. Your conditions.</h1></div><div class="intro-icon" aria-hidden="true">〰</div></div>
