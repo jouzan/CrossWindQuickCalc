@@ -82,8 +82,12 @@ footer{font-size:13px;color:#526c89;flex-wrap:wrap;line-height:1.6}.footer-brand
 .plane-motion{animation:runway-roll 6s linear infinite;will-change:transform,opacity}
 @keyframes runway-roll{0%{transform:translateY(120px);opacity:0}8%{opacity:1}82%{transform:translateY(-120px);opacity:1}92%,100%{transform:translateY(-120px);opacity:0}}
 @media(prefers-reduced-motion:reduce){.plane-motion{animation:none!important;transform:translateY(0);opacity:1}}
+
+.page-tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:1px solid #cbd9eb;padding-bottom:12px;flex-wrap:wrap}.page-tabs button,.map-actions button{padding:12px 20px;border:1px solid #c6d8ef;border-radius:8px;background:white;color:#23517f;font-weight:700;font-size:18px}.page-tabs button[aria-selected="true"],.map-actions button.active{background:#176bdd;color:#fff;border-color:#176bdd}.map-page-header{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:18px;flex-wrap:wrap}.map-page-header h2{font-size:30px;color:#193b60}.map-page-header p,.map-caption{font-size:16px;color:#526c89;line-height:1.6}.map-actions{display:flex;gap:8px;flex-wrap:wrap}.map-actions button{padding:9px 15px;font-size:16px}.external-map{display:block;width:100%;height:680px;height:min(75vh,800px);min-height:450px;border:0;background:#edf3fa}.map-caption{padding:15px 20px}.map-caption a,.map-page-header a{color:#176bdd;text-decoration:underline}.radar-map{height:590px;height:min(66vh,720px);min-height:390px;background:#dfeaf3}.radar-controls{padding:18px 22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}.radar-controls button{padding:10px 17px;border-radius:6px;background:#176bdd;color:white;font-size:17px;font-weight:700}.radar-controls input{flex:1;min-width:130px;accent-color:#176bdd}.radar-time{font-size:17px;font-weight:700;color:#1e5082;min-width:235px}.map-status{padding:12px 20px;background:#edf5ff;color:#23517f;font-size:16px;line-height:1.5}.radar-legend{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:0 22px 15px;font-size:14px;color:#526c89}.radar-legend img{height:28px;max-width:100%}.leaflet-container{font-family:Arial,sans-serif;font-size:14px}.leaflet-control a{color:#174674}.leaflet-control-attribution{font-size:11px}.map-page{margin-bottom:28px}@media(max-width:740px){.page-tabs button{flex:1;font-size:16px;padding:12px 8px}.map-page-header h2{font-size:25px}.external-map{min-height:540px;height:75vh}.radar-map{min-height:380px}.radar-controls{gap:12px;padding:15px}.radar-time{width:100%;order:3}.toplinks{display:none}}
 </style></head><body><header class="topbar"><a class="brand" href="./">↗ CROSSWIND <span class="brand-separator">/</span><span class="brand-caption">A clearer approach.</span></a><div class="toplinks"><span class="small-dot"></span> AVIATION WEATHER DESK <button id="how" type="button">How it works ↗</button></div></header>
 <main>
+<nav class="page-tabs" role="tablist" aria-label="Flight desk pages"><button id="tab-calculator" role="tab" aria-controls="page-calculator" aria-selected="true" tabindex="0" data-page="calculator">Crosswind calculator</button><button id="tab-aircraft" role="tab" aria-controls="page-aircraft" aria-selected="false" tabindex="-1" data-page="aircraft">Aircraft tracking</button><button id="tab-radar" role="tab" aria-controls="page-radar" aria-selected="false" tabindex="-1" data-page="radar">Weather radar</button></nav>
+<section id="page-calculator" role="tabpanel" aria-labelledby="tab-calculator">
 
 <form id="planner" class="searchbar">
 <div class="planner-options">
@@ -110,6 +114,15 @@ footer{font-size:13px;color:#526c89;flex-wrap:wrap;line-height:1.6}.footer-brand
 </section>
 <div class="planning-note"><p><b>A planning aid, part of your briefing.</b> Verify current weather, ATIS, runway availability, and aircraft limitations. The personal crosswind reference is not an aircraft operating limit. Public data availability and accuracy vary.</p></div>
 <footer><span class="footer-brand">↗ CROSSWIND</span><span>Weather: <a href="https://mesonet.agron.iastate.edu/" target="_blank" rel="noreferrer">Iowa Environmental Mesonet</a> · Runways: <a href="https://ourairports.com/data/" target="_blank" rel="noreferrer">OurAirports</a></span><span id="retrieved"></span></footer>
+</section>
+<section id="page-aircraft" class="map-page" role="tabpanel" aria-labelledby="tab-aircraft" hidden>
+<div class="map-page-header"><div><h2>Your aircraft · USA</h2><p>N336XA · N338XA · N339XA</p></div><div id="fleetButtons" class="map-actions" aria-label="Choose tracked aircraft"><button type="button" class="active" aria-pressed="true" data-fleet="all">All three</button><button type="button" aria-pressed="false" data-fleet="N336XA">N336XA</button><button type="button" aria-pressed="false" data-fleet="N338XA">N338XA</button><button type="button" aria-pressed="false" data-fleet="N339XA">N339XA</button></div></div>
+<div class="panel"><div class="map-status">Public ADS-B tracking · Select a plane for speed, altitude and track. Check “Last Pos.” for the age of its position; older reports are not live locations.</div><iframe id="fleetMap" class="external-map" title="Airplanes.live USA map tracking N336XA, N338XA and N339XA" allow="fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe><p class="map-caption">Map and aircraft reports: <a id="fleetExternal" href="https://globe.airplanes.live/?icao=a3ae27,a3b595,a3b94c" target="_blank" rel="noopener noreferrer">Open Airplanes.live map ↗</a> · Coverage depends on public receivers. A missing plane does not mean it is on the ground. If the embedded map is blocked or asks for verification, open it using this link.<br>Flight history: <a href="https://www.flightaware.com/live/flight/N336XA" target="_blank" rel="noopener noreferrer">N336XA ↗</a> · <a href="https://www.flightaware.com/live/flight/N338XA" target="_blank" rel="noopener noreferrer">N338XA ↗</a> · <a href="https://www.flightaware.com/live/flight/N339XA" target="_blank" rel="noopener noreferrer">N339XA ↗</a></p></div>
+</section>
+<section id="page-radar" class="map-page" role="tabpanel" aria-labelledby="tab-radar" hidden>
+<div class="map-page-header"><div><h2>USA weather radar</h2><p>Animated observed precipitation · NOAA nowCOAST</p></div><div class="map-actions"><button id="radarUSA" type="button">USA view</button><button id="radarArizona" type="button">Arizona</button><button id="radarRefresh" type="button">Refresh radar</button></div></div>
+<div class="panel"><div id="radarStatus" class="map-status" role="status">Radar loads when this tab opens.</div><div id="radarMap" class="radar-map" role="region" aria-label="Interactive NOAA weather radar map"></div><div class="radar-controls"><button id="radarPlay" type="button" disabled>Play</button><input id="radarSlider" type="range" min="0" max="0" value="0" aria-label="Radar observation time" disabled><output id="radarTime" class="radar-time" for="radarSlider">Awaiting radar</output><button id="radarLatest" type="button" disabled>Latest</button></div><div class="radar-legend"><span>Radar reflectivity (dBZ):</span><img alt="NOAA radar reflectivity color scale" src="https://nowcoast.noaa.gov/geoserver/observations/weather_radar/ows?service=WMS&amp;request=GetLegendGraphic&amp;version=1.3.0&amp;format=image/png&amp;layer=conus_base_reflectivity_mosaic&amp;width=350&amp;height=25&amp;legend_options=layout:horizontal"></div><p class="map-caption">Past observations, not a forecast. The timeline uses NOAA’s published observation times; gaps and processing delays are possible. Radar imagery is for planning, not navigation or storm avoidance.<br><a href="https://radar.weather.gov/" target="_blank" rel="noopener noreferrer">Open official NWS radar ↗</a> · <a href="https://nowcoast.noaa.gov/" target="_blank" rel="noopener noreferrer">NOAA nowCOAST ↗</a></p></div>
+</section>
 </main>
 <dialog id="help" class="help-modal"><button id="closeHelp" class="close" type="button" aria-label="Close explanation">✕</button><div class="eyebrow">THE WIND COMPONENT GUIDE</div><h2>A clearer picture of your approach.</h2><p>Enter an ICAO airport code and a flight window in your selected time zone. Dates convert to UTC before selecting forecasts. PST is fixed UTC−08:00; MST is fixed UTC−07:00. Choose PDT or MDT separately when daylight time applies.</p><div class="formula">Crosswind = wind speed × |sin(wind − runway)|<br>Headwind = wind speed × cos(wind − runway)</div><p>Wind and runway headings are true. Negative headwind means tailwind. Each runway direction uses the forecast case with the highest gust crosswind; the sustained crosswind and headwind come from that same case. Variable winds show full-speed crosswind and tailwind bounds separately, not simultaneous components.</p><p>TAF is decoded by IEM. Prevailing groups extend to the next prevailing group or forecast expiry. Conditional groups are included using decoded start and end times, or conservatively to expiry when no end is provided. Groups without decoded wind speed are omitted. MOS points are not interpolated. METAR is an observation, not a forecast. TAF/MOS coverage varies by station; missing data is shown explicitly.</p><p>Aircraft profiles compare the worst gust crosswind (or sustained wind when no gust is available) with one identified public POH/AFM edition. Maximum demonstrated crosswind is a certification reference, not proof of capability or an operating clearance. The legacy RV-12 profile is a maximum from its limitations section. Other variants, serial numbers, flaps configurations, manual revisions, and supplements may differ. Verify your own approved manual. Tailwinds are separate from this crosswind comparison.</p><p>The red airplane moves along your selected runway in its heading direction. The looping motion is illustrative, not live aircraft tracking or a predicted takeoff roll. With reduced motion enabled, it stays still. The wind-aligned direction is selected initially; clicking a runway pair or table direction moves the airplane and turns its nose to that heading. The wind suggestion remains separate. Across all forecast groups in the selected window, directions with any gust tailwind are excluded; remaining directions are ranked by lowest worst-case gust crosswind, then strongest minimum headwind. Equal directions are listed together; one gets the marker. No preferred wind direction is suggested for calm winds, variable winds, or a window where every direction has a tailwind at some point; the airplane still follows your selection. This does not check aircraft limits, ATC runway assignment, traffic, or temporary closures.</p><p>OurAirports supplies runway alignments and closed flags. Those flags are not live NOTAMs; temporary closures may be missing. The diagram is schematic. Missing runway alignments require a verified true heading entered in manual mode. This tool does not determine runway suitability.</p></dialog>
 <script>'use strict';
@@ -198,4 +211,100 @@ $('sources').addEventListener('click',e=>{const button=e.target.closest('[data-s
 for(const id of ['runwayTabs','runwayRows'])$(id).addEventListener('click',e=>{const button=e.target.closest('[data-runway]');if(button){runwayPicked=true;selected=button.dataset.runway;render();}});
 $('how').addEventListener('click',()=>$('help').showModal());$('closeHelp').addEventListener('click',()=>$('help').close());
 render();load();
+// Maps remain static-host compatible: an embedded public tracker and browser-direct NOAA WMS.
+const fleetHex={N336XA:'a3ae27',N338XA:'a3b595',N339XA:'a3b94c'};
+let currentPage='calculator',fleetChoice='all',radarMap=null,radarLayer=null,radarFrames=[],radarIndex=0,radarBusy=false,radarPlaying=false,radarTimer=null,radarRefreshTimer=null,radarToken=0,leafletPromise=null;
+const radarService='https://nowcoast.noaa.gov/geoserver/observations/weather_radar/ows';
+function fleetURL(){const ids=fleetChoice==='all'?Object.values(fleetHex).join(','):fleetHex[fleetChoice];return 'https://globe.airplanes.live/?icao='+ids+'&icaoFilter='+ids+(fleetChoice==='all'?'&lat=39&lon=-98&zoom=4':'&zoom=10')+'&enableLabels&extendedLabels=1&hideSideBar&mapDim=0';}
+function loadFleet(){const url=fleetURL();$('fleetMap').src=url;$('fleetExternal').href=url;}
+function pauseRadar(){radarPlaying=false;clearTimeout(radarTimer);$('radarPlay').textContent='Play';$('radarPlay').setAttribute('aria-pressed','false');}
+async function showPage(page,updateHash=true){
+ if(!['calculator','aircraft','radar'].includes(page))page='calculator';
+ const previous=currentPage;currentPage=page;
+ for(const button of document.querySelectorAll('[data-page]')){const active=button.dataset.page===page;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;$('page-'+button.dataset.page).hidden=!active;}
+ if(updateHash)history.replaceState(null,'','#'+page);
+ if(page!=='radar'){pauseRadar();clearInterval(radarRefreshTimer);radarRefreshTimer=null;}
+ if(previous==='aircraft'&&page!=='aircraft')$('fleetMap').src='about:blank';
+ if(page==='aircraft')loadFleet();
+ if(page==='radar'){
+  await startRadar();if(currentPage!=='radar')return;
+  if(radarMap)radarMap.invalidateSize();
+  if(!radarRefreshTimer)radarRefreshTimer=setInterval(()=>{if(!document.hidden&&!radarPlaying)refreshRadar();},300000);
+ }
+}
+document.querySelector('.page-tabs').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b)showPage(b.dataset.page);});
+document.querySelector('.page-tabs').addEventListener('keydown',e=>{const tabs=[...document.querySelectorAll('[data-page]')],i=tabs.indexOf(document.activeElement);if(i<0)return;let next;if(e.key==='ArrowRight')next=(i+1)%tabs.length;else if(e.key==='ArrowLeft')next=(i+tabs.length-1)%tabs.length;else if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else return;e.preventDefault();tabs[next].focus();showPage(tabs[next].dataset.page);});
+window.addEventListener('hashchange',()=>showPage(location.hash.slice(1),false));
+$('fleetButtons').addEventListener('click',e=>{const b=e.target.closest('[data-fleet]');if(!b)return;fleetChoice=b.dataset.fleet;for(const item of $('fleetButtons').querySelectorAll('button')){const active=item===b;item.classList.toggle('active',active);item.setAttribute('aria-pressed',String(active));}loadFleet();});
+function loadLeaflet(){
+ if(window.L)return Promise.resolve();if(leafletPromise)return leafletPromise;
+ leafletPromise=new Promise((resolve,reject)=>{
+  const css=document.createElement('link');css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';css.integrity='sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';css.crossOrigin='';document.head.append(css);
+  const script=document.createElement('script');script.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';script.integrity='sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';script.crossOrigin='';
+  const timeout=setTimeout(()=>{script.remove();leafletPromise=null;reject(Error('The map library timed out. Try Refresh radar.'));},18000);
+  script.onload=()=>{clearTimeout(timeout);resolve();};script.onerror=()=>{clearTimeout(timeout);script.remove();leafletPromise=null;reject(Error('The map library could not load. Try Refresh radar.'));};document.head.append(script);
+ });return leafletPromise;
+}
+let radarStarting=null;
+async function startRadar(){
+ if(radarStarting)return radarStarting;if(radarMap){if(!radarFrames.length)await refreshRadar();return;}
+ radarStarting=(async()=>{try{
+  $('radarStatus').textContent='Loading NOAA radar map…';await loadLeaflet();
+  radarMap=L.map('radarMap',{scrollWheelZoom:false,minZoom:3,maxZoom:10}).setView([39,-98],4);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'}).addTo(radarMap);
+  await refreshRadar();
+ }catch(e){$('radarStatus').textContent=e.message+' Open official NWS radar using the link below.';}finally{radarStarting=null;}})();return radarStarting;
+}
+function parseRadarTimes(xml){
+ const doc=new DOMParser().parseFromString(xml,'text/xml');
+ const layer=[...doc.getElementsByTagName('Layer')].find(el=>[...el.children].some(c=>c.localName==='Name'&&c.textContent==='conus_base_reflectivity_mosaic'));
+ const dimension=layer&&[...layer.children].find(c=>c.localName==='Dimension'&&c.getAttribute('name')==='time');
+ if(!dimension)throw Error('NOAA did not publish a radar timeline.');
+ const times=[...new Set(dimension.textContent.trim().split(',').map(t=>Date.parse(t.trim())).filter(Number.isFinite))].sort((a,b)=>a-b);
+ if(!times.length)throw Error('NOAA has no valid radar observation times.');
+ // Twelve actual observations, sampled across the latest two hours, including the latest.
+ const recent=times.filter(t=>t>=times[times.length-1]-7200000);
+ return Array.from({length:Math.min(12,recent.length)},(_,i)=>recent[Math.round(i*(recent.length-1)/Math.max(1,Math.min(12,recent.length)-1))]).map(t=>new Date(t).toISOString());
+}
+async function refreshRadar(){
+ if(radarBusy)return;radarBusy=true;pauseRadar();$('radarRefresh').disabled=true;
+ try{
+  if(!radarMap){radarBusy=false;await startRadar();return;}
+  $('radarStatus').textContent='Checking NOAA observation times…';
+  const xml=await fetchData(radarService+'?service=WMS&version=1.3.0&request=GetCapabilities',true);
+  radarFrames=parseRadarTimes(xml);$('radarSlider').max=radarFrames.length-1;
+  for(const id of ['radarSlider','radarPlay','radarLatest'])$(id).disabled=false;
+  await showRadarFrame(radarFrames.length-1);
+ }catch(e){$('radarStatus').textContent='Radar unavailable: '+e.message+' Use the official NWS radar link below.';}
+ finally{radarBusy=false;$('radarRefresh').disabled=false;}
+}
+function showRadarFrame(index){
+ if(!radarMap||!radarFrames.length)return Promise.resolve(false);
+ const token=++radarToken,stamp=radarFrames[index];
+ $('radarStatus').textContent='Loading observation '+time(Date.parse(stamp))+'…';
+ return new Promise(resolve=>{
+  let errors=0,finished=false;
+  const layer=L.tileLayer.wms(radarService,{layers:'conus_base_reflectivity_mosaic',styles:'',format:'image/png',transparent:true,version:'1.1.1',time:stamp,opacity:0,tileSize:512,maxZoom:10,attribution:'Radar: <a href="https://nowcoast.noaa.gov/" target="_blank" rel="noopener">NOAA nowCOAST</a>'});
+  const finish=ok=>{if(finished)return;finished=true;clearTimeout(timeout);
+   if(token!==radarToken){radarMap.removeLayer(layer);resolve(false);return;}
+   if(!ok){radarMap.removeLayer(layer);pauseRadar();$('radarStatus').textContent='NOAA radar tiles could not load. '+(radarLayer?'The previous observation is still displayed. ':'')+'Try Refresh radar or open NWS radar below.';resolve(false);return;}
+   if(radarLayer)radarMap.removeLayer(radarLayer);radarLayer=layer;layer.setOpacity(.72);radarIndex=index;$('radarSlider').value=index;$('radarTime').textContent=time(Date.parse(stamp));
+   const age=Math.max(0,Math.round((Date.now()-Date.parse(radarFrames.at(-1)))/60000));
+   $('radarStatus').textContent='NOAA observed radar · '+radarFrames.length+' frames · Latest observation '+age+' min ago'+(age>20?' · Delayed data':'')+' · Updates every 5 minutes';resolve(true);
+  };
+  const timeout=setTimeout(()=>finish(false),18000);
+  layer.on('tileerror',()=>errors++);layer.once('load',()=>finish(errors===0));layer.addTo(radarMap);
+ });
+}
+async function advanceRadar(){if(!radarPlaying||currentPage!=='radar'||document.hidden)return;const ok=await showRadarFrame((radarIndex+1)%radarFrames.length);if(ok&&radarPlaying)radarTimer=setTimeout(advanceRadar,1100);}
+$('radarPlay').setAttribute('aria-pressed','false');
+$('radarPlay').addEventListener('click',()=>{if(radarPlaying){pauseRadar();return;}radarPlaying=true;$('radarPlay').textContent='Pause';$('radarPlay').setAttribute('aria-pressed','true');advanceRadar();});
+$('radarSlider').addEventListener('change',()=>{pauseRadar();showRadarFrame(Number($('radarSlider').value));});
+$('radarLatest').addEventListener('click',()=>{pauseRadar();showRadarFrame(radarFrames.length-1);});
+$('radarRefresh').addEventListener('click',refreshRadar);
+$('radarUSA').addEventListener('click',()=>{if(radarMap)radarMap.setView([39,-98],4);});
+$('radarArizona').addEventListener('click',()=>{if(radarMap)radarMap.setView([34.3,-111.7],7);});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseRadar();});
+showPage(location.hash.slice(1)||'calculator',false);
+
 </script></body></html>
